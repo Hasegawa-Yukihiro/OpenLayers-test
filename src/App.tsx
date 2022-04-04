@@ -1,27 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "ol/ol.css";
-import Map from "ol/Map";
-import View from "ol/View";
-import TileLayer from "ol/layer/Tile";
-import OSM from "ol/source/OSM";
+import { useHooks } from "./hooks";
 
-function App() {
-  useEffect(() => {
-    new Map({
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      target: "map",
-      view: new View({
-        center: [0, 0],
-        zoom: 2,
-      }),
-    });
-  }, []);
+const App = () => {
+  const { mapRef, handleZoomOutClick, handleZoomInClick } = useHooks();
 
-  return <div style={{ zIndex: 0, height: "100vh" }} id="map" />;
-}
+  return (
+    <React.Fragment>
+      <div style={{ zIndex: 0, height: "400px" }} ref={mapRef} />
+      <button onClick={handleZoomOutClick}>Zoom out</button>
+      <button onClick={handleZoomInClick}>Zoom in</button>
+    </React.Fragment>
+  );
+};
 
 export default App;
