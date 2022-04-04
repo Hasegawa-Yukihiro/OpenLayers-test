@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
+import { defaults as defaultControls, ZoomSlider } from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
 
 export const useHooks = () => {
   const mapRef = useRef(null);
+  // Mapの生成
   const map = useMemo(
     () =>
       new Map({
@@ -18,6 +20,7 @@ export const useHooks = () => {
           center: [0, 0],
           zoom: 2,
         }),
+        controls: defaultControls().extend([new ZoomSlider()]),
       }),
     []
   );
